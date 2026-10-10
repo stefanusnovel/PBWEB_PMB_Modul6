@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="vieport" content="witdh=device-witdh, initial-scale=1.0">
+        <title>Login</title>
+        <link rel="stylesheet" href="../style/style.css">
+    </head>
+    <body>
+        <div class="login-container">
+            <div class="form-warp">
+                <div class="form-head">
+                    <img src="../asets/logo_USD.png" alt="Logo Univ" class="logo_USD">
+                    <h2>Selamat Datang</h2>
+                    <h3>Silahkan masukan nomor pendaftaran dan kode anda</h3>
+                </div>
+
+                <form id="form-login">
+                    <div class="input-group">
+                        <label for="noPendaftaran">Nomor Pendaftaran</label>
+                        <input type="text" id="noPendaftaran" name="noPendaftaran" placeholder="Masukan Nomor Pendaftaran">
+                        <div class="eror" id="erorNoPendaftaran"></div>
+                    </div>
+                    <div class="input-group">
+                        <label for="kode">Kode</label>
+                        <input type="text" id="kode" name="kode" placeholder="Masukan Kode">
+                        <div class="eror" id="erorKode"></div>
+                    </div>
+
+                    <button type="submit" id="btn-submit">Login</button>
+
+                    <div class="login-link">
+                        <p>Belum punya akun? <a href="https://pmb.usd.ac.id/index.php">Silahkan Daftar</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <script src="../code/login.js"></script>
+    </body>
+</html>

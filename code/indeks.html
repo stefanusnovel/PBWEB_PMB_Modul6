@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login</title>
+        <link rel="stylesheet" href="../style/style.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="form-warp">
+                <div class="form-head">
+                    <img src="../asets/logo_USD.png" alt="Logo Univ" class="logo_USD">
+                    <h2>PMB 2026/2027</h2>
+                    <h3>Silalhkan melengkapi data  diri Anda dibawah ini</h3>
+                </div>
+                <form  id="form-pendaftaran">
+                    <div class="grid">
+                    </div>
+                    <div>
+                        <div class="input-group">
+                            <label for="nama">Nama Lengkap</label>
+                            <input type="text" id="nama" name="nama"  placeholder="Sesuai Ijazah">
+                            <small class="eror" id="erorNama"></small>
+                        </div>
+                        <div class="input-group">
+                            <label for="kelamin">Jenis Kelamin</label>
+                            <select id="kelamin" name="kelamin">
+                                <option value="">Pilih Jenis Kelamin</option>
+                                <option value="Laki-laki">Laki-laki</option>
+                                <option value="Perempuan">Perempuan</option>
+                            </select>
+                            <small class="eror" id="erorKelamin"></small>
+                        </div>
+                        <div class="input-group">
+                            <label for="nisn">NISN</label>
+                            <input type="text" id="nisn" name="nisn"  placeholder="Nomor Induk Siswa Nasional">
+                            <small class="eror" id="erorNisn"></small>
+                        </div>
+                        <div class="input-group">
+                           <label for="email">Email Aktif</label>
+                            <input type="email" id="email" name="email"  placeholder="namaEmail@gmail.com">
+                            <small class="eror" id="erorEmail"></small>
+                        </div>
+                        <div class="input-group">
+                            <label for="asalSekolah">Asal Sekolah</label>
+                            <input type="text" id="asalSekolah" name="asalSekolah"  placeholder="Nama SMA//SMK">
+                            <small class="eror" id="erorAsalSekolah"></small>
+                        </div>
+                        <div class="input-group">
+                            <label for="jurusan1">Pilihan 1</label>
+                            <select id="jurusan1" name="jurusan1" class="select-prodi">
+                                <option value="">Pilih Jurusan</option>
+                            </select>
+                            <small class="eror" id="erorJurusan1"></small>
+                        </div>
+                        <div class="input-group">
+                            <label for="jurusan2">Pilihan 2</label>
+                            <select id="jurusan2" name="jurusan2" class="select-prodi">
+                                <option value="">Pilih Jurusan</option>
+                            </select>
+                            <small class="eror" id="erorJurusan2"></small>
+                        </div>
+                        <div class="input-group">
+                            <label for="jurusan3">Pilihan 3</label>
+                            <select id="jurusan3" name="jurusan3" class="select-prodi">
+                                <option value="">Pilih Jurusan</option>
+                            </select>
+                            <small class="eror" id="erorJurusan3"></small>
+                        </div>
+
+                        <button type="submit" class="btn-submit">Daftar Sekarang</button>
+
+                        <div class="login">
+                            <p><a href="../code/login.html">Log Out</a></p>
+                        </div>
+                    </div>
+                </form> 
+            </div>
+        </div>
+        <script src="../code/script.js"></script>
+    </body>
+</html>
