@@ -47,58 +47,82 @@ selectProdiElemen.forEach(select => {
 
 const formPendaftaran = document.getElementById("form-pendaftaran");
 
+// Fungsi menampilkan pesan ke DOM
+function validasiField(input, errorElement) {
+    if (!input.checkValidity()) {
+        errorElement.textContent = input.validationMessage;
+    } else {
+        errorElement.textContent = "";
+    }
+}
+
+// Konfigurasi aturan setiap field
+const rules = [
+    { id: "nama", errId: "erorNama", msgEmpty: "Nama harus diisi", msgInvalid: "Nama minimal 3 karakter" },
+    { id: "kelamin", errId: "erorKelamin", msgEmpty: "Jenis Kelamin harus dipilih" },
+    { id: "nisn", errId: "erorNisn", msgEmpty: "NISN harus diisi", msgInvalid: "NISN harus berupa angka 10 digit" },
+    { id: "email", errId: "erorEmail", msgEmpty: "Email harus diisi", msgInvalid: "Format email tidak valid" },
+    { id: "asalSekolah", errId: "erorAsalSekolah", msgEmpty: "Asal Sekolah harus diisi" },
+    { id: "jurusan1", errId: "erorJurusan1", msgEmpty: "Pilihan 1 harus dipilih" },
+    { id: "jurusan2", errId: "erorJurusan2", msgEmpty: "Pilihan 2 harus dipilih" },
+    { id: "jurusan3", errId: "erorJurusan3", msgEmpty: "Pilihan 3 harus dipilih" }
+];
+
+// Menerapkan event listener input dinamis ke semua field
+rules.forEach(rule => {
+    const input = document.getElementById(rule.id);
+    const errObj = document.getElementById(rule.errId);
+
+    input.addEventListener("input", () => {
+        if (input.validity.valueMissing) {
+            input.setCustomValidity(rule.msgEmpty);
+        } else if (input.validity.typeMismatch || input.validity.tooShort || input.validity.patternMismatch) {
+            input.setCustomValidity(rule.msgInvalid || "Format tidak valid");
+        } else {
+            input.setCustomValidity("");
+        }
+
+        if (rule.id.includes("jurusan")) {
+            const j1 = document.getElementById("jurusan1");
+            const j2 = document.getElementById("jurusan2");
+            const j3 = document.getElementById("jurusan3");
+
+            if(j2.value && j2.value === j1.value) {
+                j2.setCustomValidity("Pilihan 2 tidak boleh sama dengan Pilihan 1");
+            } else if (!j2.validity.valueMissing) {
+                j2.setCustomValidity("");
+            }
+
+            if(j3.value && j3.value === j1.value) {
+                j3.setCustomValidity("Pilihan 3 tidak boleh sama dengan Pilihan 1");
+            } else if(j3.value && j3.value === j2.value) {
+                j3.setCustomValidity("Pilihan 3 tidak boleh sama dengan Pilihan 2");
+            } else if (!j3.validity.valueMissing) {
+                j3.setCustomValidity("");
+            }
+            
+            validasiField(j1, document.getElementById("erorJurusan1"));
+            validasiField(j2, document.getElementById("erorJurusan2"));
+            validasiField(j3, document.getElementById("erorJurusan3"));
+        } else {
+            validasiField(input, errObj);
+        }
+    });
+});
+
 formPendaftaran.addEventListener("submit", function(event) {
     event.preventDefault();
 
-    let isValid = true;
-    
-    function checkInput(id, errorId, pesan) {
-        const input = document.getElementById(id);
-        const errorElement = document.getElementById(errorId);
-        if(input.value.trim() === "") {
-            errorElement.textContent = pesan;
-            isValid = false;
-        } else {
-            errorElement.textContent = "";
-        }
-    }
+    rules.forEach(rule => {
+        document.getElementById(rule.id).dispatchEvent(new Event("input"));
+    });
 
-    checkInput("nama", "erorNama", "Nama harus diisi");
-    checkInput("kelamin", "erorKelamin", "Jenis Kelamin harus dipilih");
-    checkInput("nisn", "erorNisn", "NISN harus diisi");
-    checkInput("email", "erorEmail", "Email harus diisi");
-    checkInput("asalSekolah", "erorAsalSekolah", "Asal Sekolah harus diisi");
-    checkInput("jurusan1", "erorJurusan1", "Pilihan 1 harus dipilih");
-    checkInput("jurusan2", "erorJurusan2", "Pilihan 2 harus dipilih");  
-    checkInput("jurusan3", "erorJurusan3", "Pilihan 3 harus dipilih");
-
-    const jurusan1 = document.getElementById("jurusan1").value;
-    const jurusan2 = document.getElementById("jurusan2").value;
-    const jurusan3 = document.getElementById("jurusan3").value;
-
-    const erorJurusan2 = document.getElementById("erorJurusan2");
-    const erorJurusan3 = document.getElementById("erorJurusan3");
-
-    if (jurusan2 !== "") erorJurusan2.textContent = "";
-    if (jurusan3 !== "") erorJurusan3.textContent = "";
-
-    if (jurusan2 !== "" && jurusan2 === jurusan1) {
-        erorJurusan2.textContent = "Pilihan 2 tidak boleh sama dengan Pilihan 1";
-        isValid = false;
-    }
-
-    if (jurusan3 !== "") {
-        if (jurusan3 === jurusan1) {
-            erorJurusan3.textContent = "Pilihan 3 tidak boleh sama dengan Pilihan 1";
-            isValid = false;
-        } else if (jurusan3 === jurusan2) {
-            erorJurusan3.textContent = "Pilihan 3 tidak boleh sama dengan Pilihan 2";
-            isValid = false;
-        }
-    }
-    
-    if(isValid) {
+    if(formPendaftaran.checkValidity()) {
         alert("Pendaftaran berhasil");
         formPendaftaran.reset();
+        
+        rules.forEach(rule => {
+            document.getElementById(rule.errId).textContent = "";
+        });
     }   
 });
